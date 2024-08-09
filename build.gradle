@@ -27,3 +27,16 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+jar {
+	archiveBaseName = 'aws-spring-boot'
+	archiveVersion = '1.0.0'
+	archiveFileName = "${archiveBaseName}-${archiveVersion}.jar"
+	enabled = false
+}
+
+bootJar {
+	archiveBaseName.set('aws-spring-boot')
+	archiveVersion.set('1.0.0')
+	archiveFileName.set("${archiveBaseName.get()}-${archiveVersion.get()}.jar")
+}
