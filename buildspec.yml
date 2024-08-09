@@ -1,4 +1,10 @@
 version: 0.2
+
+env:
+  variables:
+    REPOSITORY_URL: 891377157603.dkr.ecr.us-east-1.amazonaws.com/aws-spring-boot
+    IMAGE_TAG: "latest"
+
 phases:
   pre_build:
     commands:
@@ -6,10 +12,7 @@ phases:
       - aws --version
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 891377157603.dkr.ecr.us-east-1.amazonaws.com
       - echo Setting repo URL
-      - REPOSITORY_URL=891377157603.dkr.ecr.us-east-1.amazonaws.com/aws-spring-boot
       - echo Setting image tag
-      - COMMIT_HASH="$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)"
-      - IMAGE_TAG="${COMMIT_HASH:=latest}"
       - printenv
   build:
     commands:
