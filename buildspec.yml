@@ -2,7 +2,7 @@ version: 0.2
 
 env:
   variables:
-    REPOSITORY_URL: 891377157603.dkr.ecr.us-east-1.amazonaws.com/aws-spring-boot
+    $REPOSITORY_URL: 891377157603.dkr.ecr.us-east-1.amazonaws.com/aws-spring-boot
     IMAGE_TAG: "latest"
 
 phases:
@@ -18,16 +18,16 @@ phases:
     commands:
       - echo Building the image
       - ./gradlew clean build
-      - docker build -t REPOSITORY_URL:latest .
-      - docker tag REPOSITORY_URL:latest REPOSITORY_URL:$IMAGE_TAG
+      - docker build -t $REPOSITORY_URL:latest .
+      - docker tag $REPOSITORY_URL:latest $REPOSITORY_URL:$IMAGE_TAG
 
   post_build:
     commands:
       - echo Pushing the image
-      - docker push REPOSITORY_URL:latest
-      - docker push REPOSITORY_URL:$IMAGE_TAG
+      - docker push $REPOSITORY_URL:latest
+      - docker push $REPOSITORY_URL:$IMAGE_TAG
       - export IMAGE_NAME='aws-spring-boot'
-      - export IMAGE_URI=REPOSITORY_URL:$IMAGE_TAG
+      - export IMAGE_URI=$REPOSITORY_URL:$IMAGE_TAG
       - "printf '[{\"name\":\"%s\",\"imageUri\":\"%s\"}]' \"$IMAGE_NAME\" \"$IMAGE_URI\" > imagedefinitions.json"
 artifacts:
   files:
