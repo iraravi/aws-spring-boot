@@ -2,7 +2,7 @@ version: 0.2
 
 env:
   variables:
-    $REPOSITORY_URL: 891377157603.dkr.ecr.us-east-1.amazonaws.com/aws-spring-boot
+    REPOSITORY_URL: 891377157603.dkr.ecr.us-east-1.amazonaws.com/aws-spring-boot
     IMAGE_TAG: "latest"
 
 phases:
@@ -18,7 +18,7 @@ phases:
     commands:
       - echo Building the image
       - ./gradlew clean build
-      - docker build -t $REPOSITORY_URL .
+      - docker build -t $REPOSITORY_URL:$IMAGE_TAG .
       - docker tag $REPOSITORY_URL:latest $REPOSITORY_URL:$IMAGE_TAG
 
   post_build:
