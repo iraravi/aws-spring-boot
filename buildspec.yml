@@ -18,13 +18,12 @@ phases:
     commands:
       - echo Building the image
       - ./gradlew clean build
-      - docker build -t $REPOSITORY_URL:latest .
+      - docker build -t $REPOSITORY_URL .
       - docker tag $REPOSITORY_URL:latest $REPOSITORY_URL:$IMAGE_TAG
 
   post_build:
     commands:
       - echo Pushing the image
-      - docker push $REPOSITORY_URL:latest
       - docker push $REPOSITORY_URL:$IMAGE_TAG
       - export IMAGE_NAME='aws-spring-boot'
       - export IMAGE_URI=$REPOSITORY_URL:$IMAGE_TAG
